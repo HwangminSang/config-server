@@ -1,0 +1,24 @@
+spring:
+#기존 usersevice의 appication.yml파일을 이쪽으로 옮겨 config-server가 로딩시 읽어온후 각각의 서비스가 config-server에서 읽어서 설정을한다.
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username : sa
+    password : '{cipher}AQAHYkO22NPAN7SJkq1un+tDTeu1SKYJUmXh9kIFZtoHu/7EmUA7lmVGnPQTpqh/T23NINLoTXRoEKQmLWW3IMG4ZO4xrYJLYhSNsrRdsN7uyj8Jmn+/8XI22GMQ5qwdTn1oIVbwCsZKSTC6V7cO5s7j1hStJrAYxg2SDjlER9z8WqtqujP3HsQ25LnaLV5Zs990txrbOUzUM2+m7d5Nr2WAMAFGlc9F3aVjDpvXOeyH4fmTxBmRwbOP9/IMrmAMDuMQxYS/rZWKG3ede8xMf3nPDSyanfgZcDk598pcjzc6w61Kgsd6e4HYYnGykLrxdOha/0XI0rLEiZajczMNUoneC5JdK7P8TnyO61Idziklr6xHk/g0jR7xgdtTHic3MDA='  #{cihper}라는 뜻은 암호화된 글자라는것을 명시   //http://127.0.0.1:8888/user-service/default 들어가서 123인지확인필요! 아니면 연결오류남
+    #대칭키 x
+    #암호화시키는 알고리즘 사용하여 암호화 하였다  c:/Users/alstk/keystore 안에서 key를 만들어 작업함
+
+token:
+  expiration_time : 86400000
+  secret: '{cipher}AQAEyN0R4XFHLfKfRQBSpFpoCL81SEGQMkyb3NPmlzawFQHJpsNcJmKwdWwd8HQ+SwB5cJdaq/t0tR2H0liv1WlHpnp+8UOvKOef0O3PeBaJVaE5pmXHYSaZhziW6oNwgHKmyXp7nVg/axKV2KCdxiCEIVo6NbRK8LBLtUqF0AXgAEGHTtw0Q2x1A+p40vjywfvKU8QX2SlkGELTItmc04JMb/aws31wbOCeeqrkwL/tZUqWYPikrYnDA+UuhB8n1BZPisLUg8QnfvY09tDTebaNZ8t1GRNkAgscXBBTXcD2seze7jZV3J20yFFshs9zLjRKlYDPFAlhypgiTiwK75WZ6P83RyCNUZQvTZGaPPYYyvbed6ugZ+fbcyou2b8HQnVqRIjDNnvSQsGrbScUGzzM'
+
+gateway:
+  ip: 192.168.1.86
+
+#USER-SERVICE에서 @LoadBalanced사용 하여 아래 처럼바꿈
+order_service:
+  url: http://ORDER-SERVICE/order-service/%s/orders
+  exception:
+     orders_is_empty: There is no Item.
+ 
+
